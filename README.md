@@ -1,6 +1,6 @@
 # Factorio-Production-Planner
 
-Created as a school project. A simple companion app for the videogame Factorio, to help you plan your production lines. 
+Created as a school project. A simple companion app for the PC game Factorio, to help you plan your production lines. 
 
 Built for Android 8.0+
 
