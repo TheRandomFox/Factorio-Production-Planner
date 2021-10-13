@@ -20,4 +20,4 @@ Variable factors included:
 	
 	- no. of output products per cycle
 
-Due to lack of time, and the app being primarily a proof-of-concept for now, only the "Intermediate Products" and roughly half of the "Logistics" tab will be implemented. Given more time, the app may be expanded to include the rest of the recipies in the game.
+Due to lack of time, and the app being primarily a proof-of-concept for now, only the "Intermediate Products" and some of the most commonly-used items in the "Logistics" tab will be implemented. Given more time, the app may be expanded to include the rest of the recipies in the game.
