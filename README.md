@@ -1,6 +1,7 @@
 # Factorio-Production-Planner
+Author: Abdul Halim bin Slamat
 
-Created as a school project. A simple companion app for the PC game Factorio, to help you plan your production lines. 
+Created as a school project, 300CEM AAD. A simple companion app for the PC game Factorio, to help you plan your production lines. 
 
 Built for Android 8.0+
 
