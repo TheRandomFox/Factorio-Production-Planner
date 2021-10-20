@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#323232"
+    tools:context=".ViewRecipesActivity">
+
+    <TextView
+        android:id="@+id/viewRecipesTextView"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="36dp"
+        android:layout_weight="0"
+        android:text="View Recipes"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/teal_700"
+        android:textColorHint="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:editable="true"
+        android:ems="10"
+        android:hint="Search"
+        android:inputType="textPersonName"
+        android:maxLength="32"
+        android:minHeight="48dp"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#A8FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/viewRecipesTextView"
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipesTextView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="64dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/recipeScrollView"
+        android:layout_width="0dp"
+        android:layout_height="563dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:scrollbarStyle="insideInset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchEditText"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableRow
+                android:id="@+id/recipeTableRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/recipeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Product name"
+                    android:text="foo"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textStyle="italic" />
+            </TableRow>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
