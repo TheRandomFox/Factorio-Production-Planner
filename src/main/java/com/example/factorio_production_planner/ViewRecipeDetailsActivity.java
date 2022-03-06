@@ -157,6 +157,11 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
          */
         ArrayList<Products> productList = new ArrayList();
 
+        double am1 = Modifiers.getAm1(); double am2 = Modifiers.getAm2(); double am3 = Modifiers.getAm3();
+        double stoneFur = Modifiers.getStoneFur(); double steelFur = Modifiers.getSteelFur();
+        double elecFur = Modifiers.getElecFur();
+        double chemPlant = Modifiers.getChemPlant();
+        
         /*
         //attributes
         int[] listID = new int[40]; //ID
@@ -166,12 +171,7 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
         ArrayList<List<Double>> listMadeIn = new ArrayList();   //Made in
         ArrayList<ArrayList<ArrayList<Object>>> listComponents = new ArrayList();   //components
         ArrayList<ArrayList<Object>> comp1 = null;   //components sub-arrays
-        ArrayList<Object> comp0 = null;
-
-        double am1 = Modifiers.getAm1(); double am2 = Modifiers.getAm2(); double am3 = Modifiers.getAm3();
-        double stoneFur = Modifiers.getStoneFur(); double steelFur = Modifiers.getSteelFur();
-        double elecFur = Modifiers.getElecFur();
-        double chemPlant = Modifiers.getChemPlant();
+        ArrayList<Object> comp0 = null;     
 
         //ArrayList<Products> productList = new ArrayList();
         //LOGISTICS PRODUCTS TAB (id: 0-61)
@@ -445,6 +445,134 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
         comp0 = new ArrayList(); comp1 = new ArrayList(); madeIn = new ArrayList();
         */
 
+        Products yelBelt = new Products(4, "Transport belt", 0.5, 2);
+        ((Products) yelBelt).madeIn = new double[]{am1, am2, am3};
+        ((Products) yelBelt).components = new Object[][]{{"ironPlate", 1}, {"ironGear", 1}};
+        productList.add(yelBelt);
+
+        Products inserter = new Products(14, "Inserter", 0.5, 1);
+        inserter.madeIn = new double[]{am1, am2, am3};
+        inserter.components = new Object[][]{{"ironPlate", 1}, {"ironGear", 1}, {"grnCircuit", 1}};
+        productList.add(inserter);
+
+        Products pipe = new Products(24, "Pipe", 0.5, 1);
+        pipe.madeIn = new double[]{am1, am2, am3};
+        pipe.components = new Object[][]{{"ironPlate", 1}};
+        productList.add(pipe);
+
+        Products rail = new Products(27, "Rail", 0.5, 2);
+        rail.madeIn = new double[]{am1, am2, am3};
+        rail.components = new Object[][]{{"steelPlate", 1}, {"ironStick", 1}, {"stone", 1}};
+        productList.add(rail);
+
+        //PRODUCTION TAB (id: 62-100)
+        //Note: excluded from build with exception of Productivity Module 1
+
+        Products prod1 = new Products(96, "Productivity module 1", 15.0, 1);
+        prod1.madeIn = new double[]{am1, am2, am3};
+        prod1.components = new Object[][]{{"grnCircuit", 5}, {"redCircuit", 5}};
+        productList.add(prod1);
+
+        //INTERMEDIATE PRODUCTS TAB (id: 101-159)
+        //Note: Raw resources and fluids have baseTime==0 as it is assumed that supply is infinite for the sake of simplification.
+        //noOfOutputs==1 so that the quantity required for consumption can be calculated.
+
+        //      INTERMEDIATE/FLUIDS
+        //id:101, crude oil
+        Products heavyOil = new Products(102, "Heavy oil", 0, 1);
+        productList.add(heavyOil);
+        Products lightOil = new Products(103, "Light oil", 0, 1);
+        productList.add(lightOil);
+        Products lube = new Products(104, "Lubricant", 0, 1);
+        productList.add(lube);
+        Products petrol = new Products(105, "Petroleum gas", 0, 1);
+        productList.add(petrol);
+        Products sulAcid = new Products(106, "Sulphuric acid", 0, 1);
+        productList.add(sulAcid);
+        Products water = new Products(107, "Water", 0, 1);
+        productList.add(water);
+        //id:108, steam
+
+        //      INTERMEDIATE/RAW RESOURCES
+        //id:109, wood
+        Products coal = new Products(110, "Coal", 0, 1);
+        productList.add(coal);
+        Products stone = new Products(111, "Stone", 0, 1);
+        productList.add(stone);
+        Products ironOre = new Products(112, "Iron ore", 0, 1);
+        productList.add(ironOre);
+        Products copperOre = new Products(113, "Copper ore", 0, 1);
+        productList.add(copperOre);
+        //id:114, uranium ore
+        //id:115, raw fish
+
+        //      INTERMEDIATE/MATERIALS
+        Products ironPlate = new Products(116, "Iron plate", 3.2, 1);
+        ironPlate.madeIn = new double[]{stoneFur, steelFur, elecFur};
+        ironPlate.components = new Object[][]{{"ironOre", 1}};
+        productList.add(ironPlate);
+
+        Products copPlate = new Products(117, "Copper plate", 3.2, 1);
+        copPlate.madeIn = new double[]{stoneFur, steelFur, elecFur};
+        copPlate.components = new Object[][]{{"copperOre", 1}};
+        productList.add(copPlate);
+
+        Products solidFuel = new Products(118, "Solid fuel", 2.0, 1);
+        solidFuel.madeIn = new double[]{chemPlant};
+        solidFuel.components = new Object[][]{{"petrol", 20}, {"lightOil", 10}, {"heavyOil", 20}};
+        productList.add(solidFuel);
+
+        Products steelPlate = new Products(119, "Steel plate", 16.0, 1);
+        steelPlate.madeIn = new double[]{stoneFur, steelFur, elecFur};
+        steelPlate.components = new Object[][]{{"ironPlate", 5}};
+        productList.add(steelPlate);
+
+        Products plastic = new Products(120, "Plastic bar", 1.0, 2);
+        plastic.madeIn = new double[]{chemPlant};
+        plastic.components = new Object[][]{{"petrol", 20}};
+        productList.add(plastic);
+
+        Products sulphur = new Products(121, "Sulphur", 1.0, 2);
+        sulphur.madeIn = new double[]{chemPlant};
+        sulphur.components = new Object[][]{{"petrol", 30}, {"water", 30}};
+        productList.add(sulphur);
+
+        Products battery = new Products(122, "Battery", 4.0, 1);
+        battery.madeIn = new double[]{chemPlant};
+        battery.components = new Object[][]{{"copPlate", 1}, {"ironPlate", 1}, {"sulAcid", 20}};
+        productList.add(battery);
+
+        Products explosives = new Products(123, "Explosives", 4.0, 2);
+        explosives.madeIn = new double[]{chemPlant};
+        explosives.components = new Object[][]{{"coal", 1}, {"sulphur", 1}, {"water", 10}};
+        productList.add(explosives);
+
+        //id:124, uranium processing -- nuclear tech
+        //id:125-131, fluid barrels
+
+        //      INTERMEDIATE/CRAFTING COMPONENTS
+        Products copCable = new Products(132, "Copper cable", 0.5, 2);
+        copCable.madeIn = new double[]{am1, am2, am3};
+        copCable.components = new Object[][]{{"copPlate", 1}};
+        productList.add(copCable);
+
+        Products ironStick = new Products(133, "Iron stick", 0.5, 2);
+        ironStick.madeIn = new double[]{am1, am2, am3};
+        ironStick.components = new Object[][]{{"ironPlate", 1}};
+        productList.add(ironStick);
+
+        Products ironGear = new Products(134, "Iron gear wheel", 0.5, 1);
+        ironGear.madeIn = new double[]{am1, am2, am3};
+        ironGear.components = new Object[][]{{"ironPlate", 2}};
+        productList.add(ironGear);
+
+        //id:135, empty barrel
+
+        Products grnCircuit = new Products(136, "Electronic circuit", 0.5, 1);
+        grnCircuit.madeIn = new double[]{am1, am2, am3};
+        grnCircuit.components = new Object[][]{{"copCable", 3}, {"ironPlate", 1}};
+        productList.add(grnCircuit);
+        
         Products redCircuit = new Products(137, "Advanced circuit", 6.0, 1);
         redCircuit.madeIn = new double[]{Modifiers.getAm1(), Modifiers.getAm2(), Modifiers.getAm3()};
         redCircuit.components = new Object[][]{{"copCable", 4}, {"grnCircuit", 2}, {"plastic", 2}};
