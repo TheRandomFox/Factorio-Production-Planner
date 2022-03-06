@@ -33,7 +33,7 @@ Finally, button to confirm parameters and calculate values. Create new object in
 
 public class ViewRecipeDetailsActivity extends AppCompatActivity
 {
-    ArrayList<Products> productList = loadProductList();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,9 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
         Intent fromBrowseRecipes = getIntent();
         int id = fromBrowseRecipes.getExtras().getInt("id");
 
-        Products goal = findById(id);
+        ArrayList<Products> productList = loadProductList();
+
+        Products goal = findById(id, productList);
         TextView productNameTextView = findViewById(R.id.recipeNameTextView);
 
         if(goal != null) {
@@ -55,10 +57,11 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
         }
         else {
             productNameTextView.setText(getString(R.string.recipe_name_default));
+            init(null);
         }
     }
 
-    public void init(Products product)
+    public void init(Products goal)
     {
         /*
         Generate dynamic recipe ingredient table.
@@ -72,68 +75,64 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
             - Object[][] components
          */
         TableLayout recipeTable = (TableLayout) findViewById(R.id.recipeTableLayout);
-        TableRow tbRow = new TableRow(this);
+
 
         //1st row: Table headers
         TextView productNameTitle = findViewById(R.id.productNameTitleText);    //col 1
-        productNameTitle.setText("   PRODUCT NAME   ");
+        productNameTitle.setText("PRODUCT NAME |");
         productNameTitle.setTextColor(Color.WHITE);
         productNameTitle.setTypeface(null, Typeface.BOLD);
         productNameTitle.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        tbRow.addView(productNameTitle);
 
         TextView outputRateTitle = findViewById(R.id.outputRateTitleText);  //col 2
-        outputRateTitle.setText("   OUTPUT RATE   ");
+        outputRateTitle.setText("| OUTPUT RATE |");
         outputRateTitle.setTextColor(Color.WHITE);
         outputRateTitle.setTypeface(null, Typeface.BOLD);
         outputRateTitle.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        tbRow.addView(outputRateTitle);
 
         TextView factsNeededTitle = findViewById(R.id.factoriesNeededTitleText); //col 3
-        factsNeededTitle.setText("  FACTORIES NEEDED  ");
+        factsNeededTitle.setText("| FACTORIES NEEDED");
         factsNeededTitle.setTextColor(Color.WHITE);
         factsNeededTitle.setTypeface(null, Typeface.BOLD);
         factsNeededTitle.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        tbRow.addView(factsNeededTitle);
-        recipeTable.addView(tbRow);  //add row to table
 
         //2nd row: this item
-        tbRow = new TableRow(this);    //new row
+        TableRow tbRow = new TableRow(this); //new row
 
         TextView tv0 = new TextView(this);  //col 1
+        TextView tv1 = new TextView(this);  //col 2
+        TextView tv2 = new TextView(this);  //col 3
         //unable to continue while Products class is still broken
     }
 
-    private Products findById(int id)
+    private Products findById(int id, ArrayList<Products> productList)
     {
         /* Receive ID from Intent. Compare against ID attribute of Products instances to find
         matching ID. If match found, return that instance. Else, pop error via toast.
         Params:
             int id
-
         Returns:
             Product product
-            null
+            OR, null
         */
         Object id_obj = (Object) id;
         int listLen = productList.size();
-        String listSize = String.valueOf(productList.size() );
+        String listSize = String.valueOf(listLen);
         Log.d("productList size", listSize);
-        Products idx_n;
-        for(int n = 0; n < listLen; n++)
-        {
-            idx_n = productList.get(n);
-            Object i_n = idx_n.getId();
-            Log.d("idx_n == ", i_n + "::" + idx_n.toString());
 
-            if(i_n == id_obj)
+        for(Products n : productList)
+        {
+            Object id_n = n.getId();
+            Log.d("idx_n == ", id_n + "::" + n.toString());
+
+            if(id_n == id_obj)
             {
-                return idx_n;
+                return n;
             }
         }
-        //if reach end of list without returning 'idx_n'
+        //if reached end of list without returning 'n'
         Toast cantFindItToast = Toast.makeText(getApplicationContext(),
-                "Product "+ id +" can't be found", Toast.LENGTH_SHORT);
+                "Product ID "+ id +" can't be found", Toast.LENGTH_SHORT);
         cantFindItToast.setMargin(25,50);
         cantFindItToast.show();
         return null;
@@ -147,14 +146,18 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
         Returns:
             ArrayList<Products> productList
 
+        The core functionality of the app relies on the implementation of the productList array.
+            Without it, the rest of the app can't work. Unfortunately, that's exactly what happened...
         I can't get the 'Products' object class to work properly and I don't know why.
         getId() returns '158' for all 40 objects in the ArrayList and the other attributes
-            are completely jumbled rubbish data.
-        Below was an extremely dirty workaround attempt.
-        It did not work because I did not realise that Java cannot return multiple values
-            in a single method until it was already too late. Fuck me, I guess...
+            are completely scrambled junk data.
+        The large commented-out section below was an extremely dirty last-ditch workaround attempt.
+        It did not work because I did not know that Java cannot return multiple values
+            in a single method until it was already too late.
          */
+        ArrayList<Products> productList = new ArrayList();
 
+        /*
         //attributes
         int[] listID = new int[40]; //ID
         String[] listName = new String[40]; //Name
@@ -440,8 +443,8 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
         listComponents.add(comp1);
         //reset comp0, comp1, madeIn
         comp0 = new ArrayList(); comp1 = new ArrayList(); madeIn = new ArrayList();
+        */
 
-        /*
         Products redCircuit = new Products(137, "Advanced circuit", 6.0, 1);
         redCircuit.madeIn = new double[]{Modifiers.getAm1(), Modifiers.getAm2(), Modifiers.getAm3()};
         redCircuit.components = new Object[][]{{"copCable", 4}, {"grnCircuit", 2}, {"plastic", 2}};
@@ -516,7 +519,6 @@ public class ViewRecipeDetailsActivity extends AppCompatActivity
         //id:159, space science -- requires rocket silo
         //MILITARY PRODUCTS TAB (id:160-214) excluded from build
 
-         */
         return productList;
     }
 }

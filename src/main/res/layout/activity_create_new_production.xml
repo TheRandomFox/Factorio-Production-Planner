@@ -67,6 +67,7 @@
             android:layout_height="wrap_content">
 
             <TableRow
+                android:id="@+id/titleTextTableRow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -94,7 +95,12 @@
                     android:text="@string/factories_needed_title"
                     android:textAllCaps="true"
                     android:textColor="@color/white" />
+
             </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </TableLayout>
     </ScrollView>
 
