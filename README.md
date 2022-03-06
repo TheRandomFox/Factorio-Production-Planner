@@ -22,3 +22,7 @@ Variable factors included:
 	- no. of output products per cycle
 
 Due to lack of time, and the app being primarily a proof-of-concept for now, only the "Intermediate Products" (excluding nuclear techs) and some of the most commonly-used items in the "Logistics" tab will be implemented. Given more time, the app may be expanded to include the rest of the recipies in the game.
+
+------
+
+I can't get the Products object class to work and I don't know why.
